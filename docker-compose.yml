@@ -7,6 +7,7 @@ services:
       target: dev
       args:
         PHP_VERSION: ${PHP_VERSION}
+    container_name: php-fpm
     restart: on-failure
     user: ${PHP_OWNER}
     volumes:
