@@ -23,7 +23,6 @@ RUN php -r 'readfile("https://getcomposer.org/installer");' > composer-setup.php
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm -f composer-setup.php
 
-
 COPY ./config/default.ini /usr/local/etc/php/conf.d/default.ini
 
 ENV APP_ENV=dev
@@ -55,9 +54,10 @@ ENV APP_ENV=prod
 
 WORKDIR /var/www/html
 
+RUN composer install --no-dev --no-interaction --optimize-autoloader
+
 RUN rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 ## Cleanup
 RUN apk del dev-deps && \
-    composer global remove hirak/prestissimo && \
     rm /usr/local/bin/composer
